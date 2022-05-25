@@ -2,39 +2,46 @@ const fs = require('fs');
 const path = require('path');
 const { stdin, stdout } = process;
 
-const filePath = path.join(__dirname, 'text.txt');
+const create = fs.createWriteStream(
+    
+    path.join(__dirname, 'text.txt'), (err) => {
+        if (err) {
 
-fs.unlink(filePath, (err) => {
-     if (err) {
-         
-     }
-});
+            throw err;
+
+        } 
+    }, 'utf-8'
+    
+);
 
 stdout.write('Здравствуйте! Введите текст:\n');
 
 stdin.on('data', data => {
 
-    let write = data.toString();
+    let write = data.toString().trim();
 
-    if (write == 'exit\n') {
+    if (write != 'exit') {
+
+        create.write(data);
+
+    } else {
+
         process.exit(process.on('exit', () => {
+
             stdout.write('Good bye!\n');
+
         }));
-    };
 
-    fs.appendFile(filePath, write, err => {
-        if (err) {
-            throw err;
-        }
+      }
 
-    stdout.write('Введенный текст записан в созданный файл. Введите текст или завершите программу...\n');
-
-    });
 });
 
 process.on('SIGINT', () => {
-    process.exit(process.on('exit', () => {
-        stdout.write('\nGood bye!\n');
-    }));
-})
 
+    process.exit(process.on('exit', () => {
+
+        stdout.write('\nGood bye!\n');
+
+    }));
+    
+})

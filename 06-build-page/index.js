@@ -1,12 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 const { mkdir } = require('fs/promises');
+const fsPromises = require('fs/promises');
 
 const copyStyles = path.join(__dirname, 'project-dist', 'style.css');
 const Styles = path.join(__dirname, 'styles');
 const template = path.join(__dirname);
+const copyStyl = path.join(__dirname, 'project-dist');
+const indexHtml = path.join(copyStyl, 'index.html');
 
-console.log("6 задание посараюсь доделать до четверга. Пожалуйста, если вы проверяете и не видете оконченного задания - оставьте свой никнейм дискорда. Я с вами свяжусь, если сделаю 6 задачу полностью. Надеюсь на ваше понимание");
+let temp = '';
+
 (async function () {
 
     try {
@@ -389,8 +393,6 @@ console.log("6 задание посараюсь доделать до четв�
     
             })
         })
-
-
 
     } catch (error) {
 
